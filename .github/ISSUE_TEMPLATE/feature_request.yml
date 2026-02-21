@@ -1,0 +1,52 @@
+name: ✨ Feature Request
+description: Suggérer une nouvelle fonctionnalité
+title: "[FEATURE] "
+labels: ["enhancement", "triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci de suggérer une nouvelle fonctionnalité !
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problème lié
+      description: Votre fonctionnalité résout-elle un problème ?
+      placeholder: Je suis frustré quand...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solution souhaitée
+      description: Décrivez la solution idéale
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considérées
+      description: Avez-vous envisagé d'autres solutions ?
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priorité
+      options:
+        - Basse (serait nice to have)
+        - Moyenne (amélioration significative)
+        - Haute (bloquant pour mon usage)
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      options:
+        - label: J'accepte de suivre le Code of Conduct de FinOps
+          required: true
