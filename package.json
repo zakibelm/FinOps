@@ -1,0 +1,59 @@
+{
+  "name": "finops-platform",
+  "version": "1.0.0",
+  "description": "Plateforme d'analyse financière IA optimisée pour CPA",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "gateway",
+    "workers",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm:dev:infra\" \"npm:dev:apps\"",
+    "dev:infra": "docker-compose -f infrastructure/docker-compose.yml up -d",
+    "dev:apps": "concurrently \"npm:dev:gateway\" \"npm:dev:workers\" \"npm:dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:gateway": "cd gateway && npm run dev",
+    "dev:workers": "cd workers && npm run dev",
+    "build": "npm run build --workspaces",
+    "start": "npm run start --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "infra:up": "docker-compose -f infrastructure/docker-compose.yml up -d",
+    "infra:down": "docker-compose -f infrastructure/docker-compose.yml down",
+    "infra:logs": "docker-compose -f infrastructure/docker-compose.yml logs -f",
+    "db:migrate": "cd gateway && npx prisma migrate dev",
+    "db:seed": "cd gateway && npx prisma db seed",
+    "setup": "npm install && npm run infra:up && npm run db:migrate && npm run db:seed"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zakibelm/FinOps.git"
+  },
+  "keywords": [
+    "finance",
+    "ai",
+    "cpa",
+    "accounting",
+    "openai",
+    "claude",
+    "deepseek",
+    "nextjs",
+    "optimization"
+  ],
+  "author": "Zak Belm <zakibelm@gmail.com>",
+  "license": "MIT"
+}

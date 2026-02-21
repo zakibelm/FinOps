@@ -1,0 +1,148 @@
+version: '3.8'
+
+services:
+  # Redis - Cache et Queue
+  redis:
+    image: redis:7-alpine
+    container_name: finops-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # PostgreSQL - Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: finops-postgres
+    environment:
+      POSTGRES_USER: finops
+      POSTGRES_PASSWORD: finops123
+      POSTGRES_DB: finops
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finops"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # Qdrant - Vector Database (pour cache sémantique)
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: finops-qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  # Gateway API
+  gateway:
+    build:
+      context: ../gateway
+      dockerfile: Dockerfile
+    container_name: finops-gateway
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - DATABASE_URL=postgresql://finops:finops123@postgres:5432/finops
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=dev-secret-key-change-in-production
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+    ports:
+      - "3001:3001"
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ../gateway:/app
+      - /app/node_modules
+    command: npm run dev
+
+  # Workers - Phase 1 (Analyst)
+  worker-phase1:
+    build:
+      context: ../workers
+      dockerfile: Dockerfile
+    container_name: finops-worker-phase1
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - MODEL_PHASE1_ANALYST=anthropic/claude-3-5-sonnet-20241022
+    depends_on:
+      - redis
+    volumes:
+      - ../workers:/app
+      - /app/node_modules
+    command: npm run worker:phase1
+
+  # Workers - Phase 2 (Researcher)
+  worker-phase2:
+    build:
+      context: ../workers
+      dockerfile: Dockerfile
+    container_name: finops-worker-phase2
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - MODEL_PHASE2_RESEARCHER=openrouter/deepseek/deepseek-v3
+    depends_on:
+      - redis
+    volumes:
+      - ../workers:/app
+      - /app/node_modules
+    command: npm run worker:phase2
+    deploy:
+      replicas: 2  # Plus de workers pour DeepSeek (gratuit)
+
+  # Workers - Phase 3 (Validator)
+  worker-phase3:
+    build:
+      context: ../workers
+      dockerfile: Dockerfile
+    container_name: finops-worker-phase3
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - MODEL_PHASE3_VALIDATOR=anthropic/claude-3-5-sonnet-20241022
+    depends_on:
+      - redis
+    volumes:
+      - ../workers:/app
+      - /app/node_modules
+    command: npm run worker:phase3
+
+  # Frontend (Next.js)
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: finops-frontend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
+    ports:
+      - "3000:3000"
+    depends_on:
+      - gateway
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev
+
+volumes:
+  redis_data:
+  postgres_data:
+  qdrant_data:
