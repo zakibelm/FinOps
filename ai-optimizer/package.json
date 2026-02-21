@@ -1,0 +1,29 @@
+{
+  "name": "@finops/ai-optimizer",
+  "version": "1.0.0",
+  "description": "Système auto-optimisant pour FinOps avec ML et métacognition",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts"
+  },
+  "dependencies": {
+    "@finops/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3"
+  },
+  "keywords": [
+    "ai",
+    "optimization",
+    "machine-learning",
+    "cost-optimization",
+    "quality-assurance"
+  ],
+  "author": "Zak Belm <zakibelm@gmail.com>",
+  "license": "MIT"
+}
