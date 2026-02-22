@@ -1,7 +1,4 @@
-FROM apify/actor-node:18
-
-# Update npm to latest version (supports workspaces properly)
-RUN npm install -g npm@latest
+FROM apify/actor-node:20
 
 # Copy all package.json files from workspaces first
 COPY package*.json ./
