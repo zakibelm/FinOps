@@ -4,7 +4,7 @@ import { Queue } from 'bull'
 
 const openai = new OpenAI({
   baseURL: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
-  apiKey: process.env.OPENROUTER_API_KEY,
+  apiKey: process.env.OPENROUTER_API_KEY || 'dummy-key-will-fail-at-runtime',
 })
 
 // Queue pour phase 3
