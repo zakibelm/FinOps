@@ -10,21 +10,24 @@
       "description": "What would you like to analyze? Example: 'Calculate liquidity ratio' or 'Analyze this balance sheet'",
       "default": "Analyze the financial health of my company",
       "minLength": 1,
-      "maxLength": 1000
+      "maxLength": 1000,
+      "editor": "textfield"
     },
     "sector": {
       "type": "string",
       "title": "Industry Sector",
       "description": "Select your industry for accurate benchmarks",
       "enum": ["restaurant", "retail", "manufacturing", "technology", "construction", "other"],
-      "default": "other"
+      "default": "other",
+      "editor": "select"
     },
     "analysisType": {
       "type": "string",
       "title": "Analysis Type",
       "description": "Quick: Fast & free (DeepSeek) | Standard: Balanced | Complex: Full pipeline with validation",
       "enum": ["quick", "standard", "complex"],
-      "default": "standard"
+      "default": "standard",
+      "editor": "select"
     },
     "documentData": {
       "type": "string",
