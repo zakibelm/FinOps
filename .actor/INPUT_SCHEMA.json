@@ -1,4 +1,5 @@
 {
+  "schemaVersion": 1,
   "type": "object",
   "title": "FinOps Financial Analysis",
   "description": "Analyze financial data with AI-powered pipeline",
