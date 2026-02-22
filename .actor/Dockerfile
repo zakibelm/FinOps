@@ -1,5 +1,8 @@
 FROM apify/actor-node:18
 
+# Update npm to latest version (supports workspaces properly)
+RUN npm install -g npm@latest
+
 # Copy all package.json files from workspaces first
 COPY package*.json ./
 COPY frontend/package*.json ./frontend/
@@ -8,14 +11,14 @@ COPY workers/package*.json ./workers/
 COPY shared/package*.json ./shared/
 COPY ai-optimizer/package*.json ./ai-optimizer/
 
-# Install all dependencies (including devDependencies needed for build)
-RUN npm install
+# Install all dependencies with workspaces enabled
+RUN npm install --workspaces
 
 # Copy source code
 COPY . ./
 
 # Build TypeScript
-RUN npm run build
+RUN npm run build --workspaces
 
 # Run the actor
 CMD ["node", "dist/main.js"]
