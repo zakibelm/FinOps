@@ -1,58 +1,16 @@
 {
   "actorSpecification": 1,
   "name": "finops-financial-analyzer",
-  "version": "1.0",
+  "title": "FinOps - Financial Analysis API",
+  "description": "AI-powered financial analysis with 3-tier pipeline and RAG system for CPA and accounting firms",
+  "version": "1.0.0",
   "buildTag": "latest",
   "environmentVariables": {
-    "OPENROUTER_API_KEY": "@openrouterApiKey",
-    "REDIS_URL": "@redisUrl",
-    "DATABASE_URL": "@databaseUrl",
-    "JWT_SECRET": "@jwtSecret"
+    "OPENROUTER_API_KEY": "@openrouterApiKey"
   },
-  "title": "FinOps - Financial Analysis API",
-  "description": "AI-powered financial analysis with 3-tier pipeline and RAG system",
-  "input": {
-    "type": "object",
-    "schema": {
-      "query": {
-        "type": "string",
-        "description": "Financial analysis question or request"
-      },
-      "document": {
-        "type": "object",
-        "description": "Financial document data (optional)"
-      },
-      "sector": {
-        "type": "string",
-        "enum": ["restaurant", "retail", "manufacturing", "tech", "construction"],
-        "description": "Industry sector for benchmarks"
-      },
-      "analysisType": {
-        "type": "string",
-        "enum": ["quick", "standard", "complex"],
-        "default": "standard"
-      }
-    },
-    "required": ["query"]
+  "input": "./INPUT_SCHEMA.json",
+  "paths": {
+    "README.md": "./APIFY_DEPLOY.md"
   },
-  "output": {
-    "type": "object",
-    "schema": {
-      "analysis": {
-        "type": "string"
-      },
-      "ratios": {
-        "type": "object"
-      },
-      "recommendations": {
-        "type": "array"
-      },
-      "cost": {
-        "type": "number"
-      },
-      "confidence": {
-        "type": "number"
-      }
-    }
-  }
+  "dockerfile": "./Dockerfile"
 }
