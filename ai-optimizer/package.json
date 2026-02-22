@@ -11,7 +11,7 @@
     "lint": "eslint src/**/*.ts"
   },
   "dependencies": {
-    "@finops/shared": "workspace:*"
+    "@finops/shared": "*"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
