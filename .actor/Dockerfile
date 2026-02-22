@@ -1,6 +1,9 @@
 FROM apify/actor-node:20
 
-# Copy all package.json files from workspaces first
+# Create workspace directories first
+RUN mkdir -p frontend gateway workers shared ai-optimizer
+
+# Copy all package.json files from workspaces
 COPY package*.json ./
 COPY frontend/package*.json ./frontend/
 COPY gateway/package*.json ./gateway/
