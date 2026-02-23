@@ -1,0 +1,13 @@
+{
+  "name": "@finops/agent-backend-coder",
+  "version": "1.0.0",
+  "description": "Backend Coder using Qwen3-Coder-Next",
+  "main": "dist/index.js",
+  "dependencies": {
+    "openai": "^4.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "typescript": "^5.3.3"
+  }
+}

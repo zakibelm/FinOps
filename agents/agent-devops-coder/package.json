@@ -1,0 +1,11 @@
+{
+  "name": "@finops/agent-devops-coder",
+  "version": "1.0.0",
+  "dependencies": {
+    "openai": "^4.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "typescript": "^5.3.3"
+  }
+}
