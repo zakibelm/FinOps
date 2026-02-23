@@ -1,0 +1,21 @@
+{
+  "name": "@finops/agent-analysis",
+  "version": "1.0.0",
+  "description": "Agent spécialisé en analyse financière avancée et calculs de ratios",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "openai": "^4.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "typescript": "^5.3.3"
+  },
+  "keywords": ["analysis", "ratios", "finance", "diagnostic", "ai-agent"],
+  "license": "MIT"
+}

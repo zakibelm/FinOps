@@ -1,0 +1,21 @@
+{
+  "name": "@finops/agent-workflow",
+  "version": "1.0.0",
+  "description": "Agent orchestrateur pour workflows financiers multi-étapes",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "openai": "^4.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "typescript": "^5.3.3"
+  },
+  "keywords": ["workflow", "orchestration", "pipeline", "finance", "ai-agent"],
+  "license": "MIT"
+}

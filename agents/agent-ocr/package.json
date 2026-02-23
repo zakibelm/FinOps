@@ -1,0 +1,29 @@
+{
+  "name": "@finops/agent-ocr",
+  "version": "1.0.0",
+  "description": "Agent spécialisé OCR pour extraction de documents financiers",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "openai": "^4.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "typescript": "^5.3.3"
+  },
+  "keywords": [
+    "ocr",
+    "finance",
+    "extraction",
+    "documents",
+    "ai-agent"
+  ],
+  "author": "FinOps Team",
+  "license": "MIT"
+}

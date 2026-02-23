@@ -1,0 +1,21 @@
+{
+  "name": "@finops/agent-rag",
+  "version": "1.0.0",
+  "description": "Agent spécialisé RAG pour recherche financière intelligente",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "openai": "^4.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "typescript": "^5.3.3"
+  },
+  "keywords": ["rag", "search", "finance", "benchmarks", "ai-agent"],
+  "license": "MIT"
+}
